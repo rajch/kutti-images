@@ -5,24 +5,34 @@ set -e
 # The variables DOCKER_VERSION and KUBE_VERSION control
 # the version of Docker and Kubernetes installed.
 # Currently supported values for KUBE_VERSION ARE:
-#   - 1.16.0-00
-#   - 1.15.4-00
-#   - 1.14.7-00
+#   - 1.18.2-00
+#   - 1.17.5-00
+#   - 1.16.9-00
 #
 # Currently supported values for DOCKER_VERSION are:
-#   - 19.03.7
-#   - 18.09.3
+#   - 19.03.8
+#   - 18.09.9
 #
 # Kubernetes 1.14 and 1.15 support docker up to 18.09 
-# only. So we use that by default, and leave 
-# KUBE_VERSION undefined so it takes whatever is latest
+# only. Uncomment the next line to use that by default
+#
+# DOCKER_VERSION=${DOCKER_VERSION:-18.09.3}
 #########################################################
-DOCKER_VERSION=${DOCKER_VERSION:-18.09.3}
 
 if [ $(id -ur) -ne 0 ]; then
     echo $0 can only be run as root. Use sudo.
     exit 1
 fi
+
+## Enable iptables to see bridged traffic
+echo "Enable iptables to see bridged traffic..."
+echo "-----------------------------------------"
+cat <<EOSYSCTLCNF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOSYSCTLCNF
+sysctl --system
+echo "-----------------------------------------"
 
 ## Install system tools
 echo "Adding system utilities, vim and curl..."
@@ -56,6 +66,8 @@ echo "Restarting docker..."
 systemctl restart docker
 echo "Adding user user1 to docker group..."
 adduser user1 docker
+echo "Adding user kuttiadmin to docker group..."
+adduser kuttiadmin docker
 echo "--------------------"
 echo "Done."
 echo
