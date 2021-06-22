@@ -1,6 +1,13 @@
 # kutti-images
 Instructions to create images for the kutti project
 
+# Important: Archived
+This repository is not maintained any more. The project has shifted to a new home: the [kuttiproject](https://github.com/kuttiproject) GitHub organization. It has also been refactored into multiple components. The closest equivalent to this repository is the [driver-vbox-images repository](https://github.com/kuttiproject/driver-vbox-images).
+
+See you there.
+
+---
+
 ## Versioning
 Images will follow the minor version of the kutti project. If the interface between the kutti tool and the image needs to change, a version bump will be required for both.
 
