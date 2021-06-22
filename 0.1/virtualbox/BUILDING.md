@@ -42,7 +42,7 @@
 27. Verify that docker is up by running `docker system info`. Verify that kubeadm is installed by running `kubeadm`. Verify the kubectl autocomplete works.
 
 ## DHClient configuration (optional)
-28. Edit the file **/etc/dhcp/dhclient.conf**. Add the following to the end: `prepend domain-name-servers 1.1.1.1, 8.8.8.8;
+28. Edit the file **/etc/dhcp/dhclient.conf**. Add the following to the end: `prepend domain-name-servers 1.1.1.1, 8.8.8.8;`
 
 ## motd
 29. Edit the file **/etc/motd**. Replace its contents with: `Welcome to kutti.`
